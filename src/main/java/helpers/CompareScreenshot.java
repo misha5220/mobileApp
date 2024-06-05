@@ -21,7 +21,7 @@ public class CompareScreenshot {
         ImageDiff diff = imageDiffer.makeDiff(expectedImage,actualImage);
         if(diff.hasDiff())  {
             System.out.println("Images are different");
-            File diffImageFile  = new File("screenshot/diff.png");
+            File diffImageFile  = new File("screenshot/diff .png");
             ImageIO.write(diff.getMarkedImage(),"PNG",diffImageFile);
             return false;
         }else {
