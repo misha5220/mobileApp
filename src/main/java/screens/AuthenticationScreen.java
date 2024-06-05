@@ -8,6 +8,12 @@ import org.openqa.selenium.support.FindBy;
 import java.util.List;
 
 public class AuthenticationScreen extends BaseScreen {
+    public AuthenticationScreen(AppiumDriver<MobileElement> driver) {
+        super(driver);
+    }
+
+    @FindBy(xpath = "//*[@resource-id='com.sheygam.contactapp:id/action_bar']/android.widget.TextView")
+    MobileElement titleViewText;
 
     @FindBy(id = "com.sheygam.contactapp:id/inputEmail")
     MobileElement inputEmailField;
@@ -18,13 +24,16 @@ public class AuthenticationScreen extends BaseScreen {
     @FindBy(id = "com.sheygam.contactapp:id/loginBtn")
     MobileElement loginButton;
 
-    public AuthenticationScreen(AppiumDriver<MobileElement> driver) {
-        super(driver);
+    public AuthenticationScreen fillEmailField(String email) {
+        waitForAnElement(inputEmailField);
+        inputEmailField.sendKeys(email);
+        return this;
     }
 
-
-
-
+    public AuthenticationScreen fillPasswordField(String password) {
+        inputPasswordField.sendKeys(password);
+        return this;
+    }
     public <T extends BaseScreen> T clickLoginButton(){
         loginButton.click();
         List<MobileElement> list = driver.findElements(By.xpath("//*[@resource-id='android:id/alertTitle']"));
@@ -44,5 +53,7 @@ public class AuthenticationScreen extends BaseScreen {
         }
         return (T) new ContactListScreen(driver);
     }
-
+    public  boolean isItAuthenticationScreen(){
+        return titleViewText.isDisplayed();
+    }
 }
